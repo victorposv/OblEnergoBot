@@ -56,9 +56,16 @@ namespace TelegramBot
 
             var chatId = update.Message.Chat.Id;
             var messageText = update.Message.Text;
-
             Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
 
+
+            string reply = "Привіт! Я бот, що дає змогу дізнатись про планові та аварійні відключення, що проводяться ТернопільОблЕнерго\n" +
+                $"Ось список доступних команд {string.Empty}\n" +
+                 "Для початку роботи, введіть /start";
+
+
+            
+            /*
             var rkm = new ReplyKeyboardMarkup(new KeyboardButton[][]
               {
             new KeyboardButton[]
@@ -72,12 +79,13 @@ namespace TelegramBot
               }
                });
 
-            // Echo received message text
+            */
+
             Message sentMessage = await botClient.SendTextMessageAsync(
                 chatId: chatId,
-                text: "You said:\n" + messageText,
-                cancellationToken: cancellationToken,
-                replyMarkup: rkm);
+                text: reply,
+                cancellationToken: cancellationToken);
+            
         }
 
         public Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
@@ -91,6 +99,11 @@ namespace TelegramBot
 
             Console.WriteLine(ErrorMessage);
             return Task.CompletedTask;
+        }
+
+        private string CheckMessageForCommand(string message)
+        {
+            return string.Empty;
         }
     }
 }
